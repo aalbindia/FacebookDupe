@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import { ensureAuthenticated } from "../middleware/checkAuth";
-import { getPosts, addPost } from "../fake-db"; //IMPORTED ADD POST
+import { getPosts, getPost, addPost, editPost, deletePost } from "../fake-db"; //IMPORTED ADD POST
 
 router.get("/", async (req, res) => {
   const posts = await getPosts(20);
@@ -34,7 +34,7 @@ router.post("/create", ensureAuthenticated, async (req, res) => {
     subgroup
   );
 
-  // console.log("New Post Created:", newPost);(DEBUGGING)
+  //console.log("New Post Created:", newPost); //(DEBUGGING)
 
   res.redirect("/posts");
 });
@@ -43,20 +43,59 @@ router.get("/show/:postid", async (req, res) => {
   res.render("individualPost");
 });
 
+
 router.get("/edit/:postid", ensureAuthenticated, async (req, res) => {
   // ⭐ TODO
+  const postid = req.params.postid
+  const post = getPost(parseInt(postid))
+  const user = await req.user
+  if (!user) {
+    return res.redirect("/posts")
+  }
+
+  if (post.creator.id !== user.id) {
+    return res.redirect("/posts");
+  }
+
+  res.render("editPosts", { postid })
+
+  
 });
 
 router.post("/edit/:postid", ensureAuthenticated, async (req, res) => {
   // ⭐ TODO
+  const { title, link, description, subgroup } = req.body;
+  const postid = parseInt(req.params.postid)
+  
+
+  const edit = editPost( postid, {title, link, description, subgroup})
+
+  //console.log("new edit", edit)
+
+  res.redirect("/posts")
 });
 
 router.get("/deleteconfirm/:postid", ensureAuthenticated, async (req, res) => {
   // ⭐ TODO
+  const postid = req.params.postid
+  const post = getPost(parseInt(postid))
+  const user = await req.user
+  if (!user) {
+    return res.redirect("/posts")
+  }
+
+  if (post.creator.id !== user.id) {
+    return res.redirect("/posts");
+  }
+  res.render("deletePost", { postid, post })
 });
 
 router.post("/delete/:postid", ensureAuthenticated, async (req, res) => {
-  // ⭐ TODO
+  const postid = parseInt(req.params.postid)
+
+  deletePost(postid)
+  res.redirect("/posts")
+
 });
 
 router.post(

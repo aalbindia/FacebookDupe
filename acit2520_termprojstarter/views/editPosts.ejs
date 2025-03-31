@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css"
+    />
+    <link href="/css/style.css" rel="stylesheet" />
+    <title>CreatePost</title>
+  </head>
+  <body>
+    <main>
+      <div class="authOptions">
+        <h1>Edit Post</h1>
+        <a role="button" href="/posts">Home</a>
+      </div>
+      
+        <form action="/posts/edit/<%= postid %>" method="POST">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+            
+            <label for="link">Link (Optional)</label>
+            <input type="url" id="link" name="link">
+            
+            <label for="description">Description</label>
+            <textarea id="description" name="description"></textarea>
+            
+            <label for="subgroup">Subgroup</label>
+            <select id="subgroup" name="subgroup">
+            <option value="coding">Coding</option>
+            <option value="food">Food</option>
+            </select>
+       
+            <button type="submit">Save Changes</button>
+        </form>
+    </main>
+  </body>
+</html>

@@ -159,6 +159,7 @@ function editPost(
   if (changes.subgroup) {
     post.subgroup = changes.subgroup;
   }
+  return post
 }
 
 function deletePost(post_id: number) {
