@@ -11,8 +11,14 @@ Create Post functionality
 ## 2025-03-30
 
 - created GET /post/edit/:postid and POST /posts/edit/:postid
-    - with editPost page and edit post button in posts.ejs
-    - made sure only post owners can edit a post
+- with editPost page and edit post button in posts.ejs
+- made sure only post owners can edit a post
 - created GET /posts/deleteconfirm/:postid and POST /posts/delete/:postid
- - with deletePost page and delete post button in posts.ejs
-    - made sure only post owners can delete a post
+- with deletePost page and delete post button in posts.ejs
+- made sure only post owners can delete a post
+
+## 2025-04-01
+
+- We created the GET /posts/show/:postid route
+- which shows post title, post link, timestamp, and creator
+- We created POST /posts/comment-create/:postid route
