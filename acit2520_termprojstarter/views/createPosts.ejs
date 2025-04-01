@@ -17,7 +17,7 @@
         <h1>Create Post</h1>
         <a role="button" href="/posts">Home</a>
       </div>
-      
+      <!-- FORM ALLOWS US TO CREATE A POST -->
       <form action="/posts/create" method="POST">
         <label for="title">Title</label>
         <input type="text" id="title" name="title" required>
@@ -32,7 +32,7 @@
         <select id="subgroup" name="subgroup" required>
           <option value="coding">Coding</option>
           <option value="food">Food</option>
-          <!-- Add more subgroups as needed -->
+          
         </select>
         
         <button type="submit">Create Post</button>

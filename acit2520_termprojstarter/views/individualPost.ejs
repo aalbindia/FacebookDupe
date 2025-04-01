@@ -9,16 +9,48 @@
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css"
     />
     <link href="/css/style.css" rel="stylesheet" />
-    <title>Post</title>
+    <title><%= post.title %></title>
   </head>
   <body>
     <main>
       <div class="authOptions">
-        <h1>View Post</h1>
+        <h1><%= post.title %></h1>
         <a role="button" href="/posts">Home</a>
       </div>
-      <div>
-        <p>Implement this page yourself. It is from individualPost.ejs</p>
+
+      <div class="post-details">
+        <% if (post.link) { %>
+          <p><a href="<%= post.link %>" target="_blank"><%= post.link %></a></p>
+        <% } %>
+        <p><%= post.description %></p>
+        <p>Posted by <%= post.creator.uname %> on <%= new Date(post.timestamp).toLocaleString() %></p>
+        <p>Subgroup: <%= post.subgroup %></p>
+      </div>
+
+      <div class="comments-section">
+        <h2>Comments</h2>
+        
+        <% if (user) { %>
+          <form action="/posts/comment-create/<%= post.id %>" method="POST">
+            <label for="description">Add a comment:</label>
+            <textarea id="description" name="description" required></textarea>
+            <button type="submit">Submit Comment</button>
+          </form>
+        <% } else { %>
+          <p><a href="/auth/login">Login</a> to comment</p>
+        <% } %>
+
+        <div class="comments-list">
+          <% post.comments.forEach(comment => { %>
+            <div class="comment">
+              <p><%= comment.description %></p>
+              <p>By <%= comment.creator.uname %> on <%= new Date(comment.timestamp).toLocaleString() %></p>
+              <% if (user && comment.creator.id === user.id) { %>
+                <a role="button" href="/posts/comment-delete/<%= comment.id %>" style="font-size: 12px; padding: 4px 4px;">Delete Comment</a>
+              <% } %>
+            </div>
+          <% }) %>
+        </div>
       </div>
     </main>
   </body>

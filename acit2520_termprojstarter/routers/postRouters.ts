@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import { ensureAuthenticated } from "../middleware/checkAuth";
-import { getPosts, getPost, addPost, editPost, deletePost } from "../fake-db"; //IMPORTED ADD POST
+import { getPosts, getPost, addPost, editPost, deletePost, addComment } from "../fake-db"; //IMPORTED ADD POST
 
 router.get("/", async (req, res) => {
   const posts = await getPosts(20);
@@ -39,8 +39,15 @@ router.post("/create", ensureAuthenticated, async (req, res) => {
   res.redirect("/posts");
 });
 router.get("/show/:postid", async (req, res) => {
-  // ⭐ TODO
-  res.render("individualPost");
+  const postid = parseInt(req.params.postid);
+  const post = getPost(postid);
+  const user = await req.user;
+  
+  if (!post) {
+    return res.redirect("/posts");
+  }
+
+  res.render("individualPost", { post, user });
 });
 
 
@@ -102,7 +109,16 @@ router.post(
   "/comment-create/:postid",
   ensureAuthenticated,
   async (req, res) => {
-    // ⭐ TODO
+    const postid = parseInt(req.params.postid);
+    const { description } = req.body;
+    const user = await req.user;
+
+    if (!user) {
+      return res.redirect("/auth/login");
+    }
+
+    addComment(postid, user.id, description);
+    res.redirect(`/posts/show/${postid}`);
   }
 );
 
