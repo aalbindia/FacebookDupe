@@ -32,3 +32,5 @@ Create Post functionality
 
 - Added created by user to each post on home page
 - Allow users to choose thier own subgroup
+- added cancel for delete page 
+- made post info show when you edit a post

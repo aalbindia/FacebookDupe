@@ -32,8 +32,9 @@ passport.serializeUser(function (user: Express.User, done: (err: any, id?: numbe
 
 
 // ⭐ TODO for Students: Fix Passport Types so they don't say any
-passport.deserializeUser(function (id: any, done: any) {
-  const user = getUserById(id);
+
+passport.deserializeUser(async function (id: number, done: (err: any, user?: Express.User | false | null) => void) {
+  const user = await getUserById(id);
   if (user) {
     done(null, user);
   } else {

@@ -65,7 +65,7 @@ router.get("/edit/:postid", ensureAuthenticated, async (req, res) => {
     return res.redirect("/posts");
   }
 
-  res.render("editPosts", { postid })
+  res.render("editPosts", { postid, title: post.title, post })
 
   
 });
