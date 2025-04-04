@@ -28,3 +28,7 @@ Create Post functionality
 - We created Get /subs/list which shows all subs that have atleast one post with links to thier /subs/show/:subname page, the subs are sorted alphabeticaly
 - We created the /subs/show/:subname page which is a page for each sub that has all posts just in that sub
 
+## 2025-04-04
+
+- Added created by user to each post on home page
+- Allow users to choose thier own subgroup

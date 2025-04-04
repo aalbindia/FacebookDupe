@@ -20,8 +20,9 @@ router.post("/create", ensureAuthenticated, async (req, res) => {
   // console.log("Request Body:", req.body); (WAS FOR DEBUGGING)
 
 //? returns undefined if obj is null, so if there is no user it will return undefined not an error
-  const creator = req.user ? 1 : null;
-  
+  const user = await req.user
+  const creator = req.user ? user?.id  : null;
+
   if (!creator) {
     return res.redirect("/auth/login");
   }
