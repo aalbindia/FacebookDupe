@@ -11,11 +11,11 @@ Create Post functionality
 ## 2025-03-30
 
 - created GET /post/edit/:postid and POST /posts/edit/:postid
-    -  with editPost page and edit post button in posts.ejs
-    - made sure only post owners can edit a post
+- with editPost page and edit post button in posts.ejs
+- made sure only post owners can edit a post
 - created GET /posts/deleteconfirm/:postid and POST /posts/delete/:postid
-    - with deletePost page and delete post button in posts.ejs
-    - made sure only post owners can delete a post
+- with deletePost page and delete post button in posts.ejs
+- made sure only post owners can delete a post
 
 ## 2025-04-01
 
@@ -34,3 +34,10 @@ Create Post functionality
 - Allow users to choose thier own subgroup
 - added cancel for delete page 
 - made post info show when you edit a post
+
+## 2025-04-05
+
+- We created/fixed the delete comments function
+- created a "deleteComment" function in the fake-db file to make code more consistent and organized
+
+All required functions of project should be complete
