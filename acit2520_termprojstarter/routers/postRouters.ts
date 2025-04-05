@@ -13,6 +13,7 @@ router.get("/create", ensureAuthenticated, (req, res) => {
   res.render("createPosts"); //renders our createPosts ejs whenever use enters /posts/create
 });
 
+//create post
 router.post("/create", ensureAuthenticated, async (req, res) => {
   const { title, link, description, subgroup } = req.body;
   
@@ -38,6 +39,8 @@ router.post("/create", ensureAuthenticated, async (req, res) => {
 
   res.redirect("/posts");
 });
+
+//shows posts: 2025-04-01
 router.get("/show/:postid", async (req, res) => {
   const postid = parseInt(req.params.postid);
   const post = getPost(postid);
@@ -63,14 +66,14 @@ router.get("/edit/:postid", ensureAuthenticated, async (req, res) => {
   if (post.creator.id !== user.id) {
     return res.redirect("/posts");
   }
-
+// returns postid to view
   res.render("editPosts", { postid })
 
   
 });
 
+//edit post
 router.post("/edit/:postid", ensureAuthenticated, async (req, res) => {
-  // ⭐ TODO
   const { title, link, description, subgroup } = req.body;
   const postid = parseInt(req.params.postid)
   
@@ -82,8 +85,8 @@ router.post("/edit/:postid", ensureAuthenticated, async (req, res) => {
   res.redirect("/posts")
 });
 
+//confirm if delete post
 router.get("/deleteconfirm/:postid", ensureAuthenticated, async (req, res) => {
-  // ⭐ TODO
   const postid = req.params.postid
   const post = getPost(parseInt(postid))
   const user = await req.user
@@ -97,6 +100,7 @@ router.get("/deleteconfirm/:postid", ensureAuthenticated, async (req, res) => {
   res.render("deletePost", { postid, post })
 });
 
+//delete post
 router.post("/delete/:postid", ensureAuthenticated, async (req, res) => {
   const postid = parseInt(req.params.postid)
 
@@ -105,6 +109,7 @@ router.post("/delete/:postid", ensureAuthenticated, async (req, res) => {
 
 });
 
+// comments: 2025-04-01
 router.post(
   "/comment-create/:postid",
   ensureAuthenticated,
