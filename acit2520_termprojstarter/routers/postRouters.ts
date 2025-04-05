@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import { ensureAuthenticated } from "../middleware/checkAuth";
-import { getPosts, getPost, addPost, editPost, deletePost, addComment, users } from "../fake-db"; //IMPORTED ADD POST
+import { getPosts, getPost, addPost, editPost, deletePost, addComment, users, comments, deleteComment } from "../fake-db"; //IMPORTED ADD POST
 
 router.get("/", async (req, res) => {
   const posts = await getPosts(20);
@@ -125,6 +125,34 @@ router.post(
 
     addComment(postid, user.id, description);
     res.redirect(`/posts/show/${postid}`);
+  }
+);
+
+router.get(
+  "/comment-delete/:commentid",
+  ensureAuthenticated,
+  async (req,res) => {
+    const commentid = parseInt(req.params.commentid);
+    const user = await req.user;
+
+    if (!user) {
+      return res.redirect("/auth/login");
+    }
+
+    const comment = Object.values(comments).find(c => c.id === commentid);
+
+    if (!comment) {
+      return res.redirect("/posts");
+    }
+
+    if (comment.creator !== user.id) {
+      return res.redirect("/posts");
+    }
+
+    deleteComment(commentid);
+
+    res.redirect(`/posts/show/${comment.post_id}`);
+
   }
 );
 
