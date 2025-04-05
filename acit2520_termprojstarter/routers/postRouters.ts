@@ -1,12 +1,12 @@
 import express from "express";
 const router = express.Router();
 import { ensureAuthenticated } from "../middleware/checkAuth";
-import { getPosts, getPost, addPost, editPost, deletePost, addComment } from "../fake-db"; //IMPORTED ADD POST
+import { getPosts, getPost, addPost, editPost, deletePost, addComment, users } from "../fake-db"; //IMPORTED ADD POST
 
 router.get("/", async (req, res) => {
   const posts = await getPosts(20);
   const user = await req.user;
-  res.render("posts", { posts, user });
+  res.render("posts", { posts, user, users });
 });
 
 router.get("/create", ensureAuthenticated, (req, res) => {
@@ -21,8 +21,9 @@ router.post("/create", ensureAuthenticated, async (req, res) => {
   // console.log("Request Body:", req.body); (WAS FOR DEBUGGING)
 
 //? returns undefined if obj is null, so if there is no user it will return undefined not an error
-  const creator = req.user ? 1 : null;
-  
+  const user = await req.user
+  const creator = req.user ? user?.id  : null;
+
   if (!creator) {
     return res.redirect("/auth/login");
   }
@@ -55,7 +56,7 @@ router.get("/show/:postid", async (req, res) => {
 
 
 router.get("/edit/:postid", ensureAuthenticated, async (req, res) => {
-  // ⭐ TODO
+ 
   const postid = req.params.postid
   const post = getPost(parseInt(postid))
   const user = await req.user
@@ -66,8 +67,8 @@ router.get("/edit/:postid", ensureAuthenticated, async (req, res) => {
   if (post.creator.id !== user.id) {
     return res.redirect("/posts");
   }
-// returns postid to view
-  res.render("editPosts", { postid })
+
+  res.render("editPosts", { postid, title: post.title, post })
 
   
 });

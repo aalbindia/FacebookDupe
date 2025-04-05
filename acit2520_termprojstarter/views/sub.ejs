@@ -14,11 +14,22 @@
   <body>
     <main>
       <div class="authOptions">
-        <h1>Sub Posts</h1>
+        <h1><%= sub %>  Subgroup Posts</h1>
         <a role="button" href="/posts">Home</a>
       </div>
       <div>
-        <p>Implement this page yourself. It is from sub.ejs</p>
+        <ol>
+        <% posts.forEach(post => { %>
+        
+        <div class="individualPost">
+          <li>
+          <a href="/posts/show/<%=post.id%>"><%= post.title %></a>
+          <p><%= post.description %></p>
+          </li>
+        </div>
+        
+        <% }) %>
+      </ol>
       </div>
     </main>
   </body>

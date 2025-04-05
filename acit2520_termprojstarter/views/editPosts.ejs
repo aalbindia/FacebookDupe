@@ -20,18 +20,17 @@
       
         <form action="/posts/edit/<%= postid %>" method="POST">
             <label for="title">Title</label>
-            <input type="text" id="title" name="title">
+            <input value="<%= title %>" type="text" id="title" name="title">
             
             <label for="link">Link (Optional)</label>
-            <input type="url" id="link" name="link">
+            <input value="<%= post.link %>" type="url" id="link" name="link">
             
             <label for="description">Description</label>
-            <textarea id="description" name="description"></textarea>
+            <textarea  id="description" name="description"><%= post.description %></textarea>
             
             <label for="subgroup">Subgroup</label>
-            <select id="subgroup" name="subgroup">
-            <option value="coding">Coding</option>
-            <option value="food">Food</option>
+            <textarea  id="subgroup" name="subgroup" required><%= post.subgroup %></textarea>
+        
             </select>
        
             <button type="submit">Save Changes</button>

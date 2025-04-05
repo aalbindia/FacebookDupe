@@ -23,11 +23,12 @@
       </div>
       <h2>Welcome, <%= user?.uname || "Visitor" %>.</h2>
       <div>
-        <p>All Posts</p>
+        <h4>All Posts</h4>
         <% posts.forEach(post => { %>
         <div class="individualPost">
           <a href="/posts/show/<%=post.id%>"><%= post.title %></a>
           <p><%= post.description %></p>
+          <p> Created by <%= users[post.creator].uname %></p>
           <% if (post.creator == user?.id) { %>
             <a role="button" href="/posts/edit/<%= post.id %>" style="font-size: 12px; padding: 4px 4px;">Edit Post</a>
            <a role="button" href="/posts/deleteconfirm/<%= post.id %>" style="font-size: 12px; padding: 4px 4px;">Delete Post</a>
@@ -37,7 +38,7 @@
       </div>
 
       <div>
-        <a href="/subs/list">Subgroups</a>
+        <a href="/subs/list">List of Subgroups</a>
       </div>
       <% if (user) { %>
       <div>
