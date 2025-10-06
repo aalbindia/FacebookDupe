@@ -1,4 +1,4 @@
-# ACIT 2520 Term Project – Post Management Application
+# Post Management Application "Facebook Dupe"
 
 ## Overview
 This project is a full-stack post management system that allows users to create, view, edit, and delete posts within specific subgroups. The system includes user authentication, access control, and comment functionality. It was initially built using a **Node.js + Express** backend with an in-memory `fakeDb.ts` for data handling, and is now being enhanced with **React** for an improved frontend experience and **PostgreSQL** for persistent data storage.
